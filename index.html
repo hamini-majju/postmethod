@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		body{
+			background-image: url(https://previews.123rf.com/images/danysharipova/danysharipova1803/danysharipova180300009/98253210-colored-abstract-texture-gradient-background.jpg);
+			bakground-size:cover;
+			background-repeat: no-repeat;
+			background-size: 100%;
+			text-align: center;
+			font-size: 24px;
+		}
+		#name{
+			font-size: 25px;
+			border-radius: 5px;
+		}
+		#password{
+			font-size: 25px;
+			border-radius: 5px;
+		}
+		select{
+			font-size: 20px;
+			border-radius: 5px;
+		}
+		button{
+			font-size: 20Px;
+			border-radius: 5px;
+			background-color: blueviolet;
+		}
+	</style>
+</head>
+<body>
+	<p><input placeholder="Enter your name" id="name"/></p>
+	<p><input placeholder="password" id="password"/></p>
+	<label>choose a car :</label>
+	<select name="cars" id="cars">
+		<option value="Audi">Audi</option>
+		<option value="Volvo">Volvo</option>
+		<option value="BMW">BMW</option>
+		<option value="Kia">kia</option>
+	</select>
+	<p id="gender">
+		<input type="radio" name="gender" value="male" id="male">Male
+		<input type="radio" name="gender" value="female" id="female">Female
+	</p>
+	<p><button onclick="show()">Submit</button></p>
+	<script type="text/javascript">
+	function show(){
+		var data=document.getElementById("name").value
+		var password=document.getElementById("password").value 
+		var cars=document.getElementById("cars").value 
+		var gmale=document.getElementById("male").checked
+		var gfemale=document.getElementById("female").checked
+		if(gmale==true) var gender="male"
+			else var gender="female"
+		console.log(data,password,gender,cars)
+		fetch("http://localhost:2500/newData",{
+			method:"POST",
+			headers:{
+				"Content-Type":"application/json"
+			},
+			body:JSON.stringify({name:data,password:password,gender:gender,select:cars})
+		})
+		.then((res)=>{
+			console.log(res)
+			if(res.status===200)
+				alert("Registration successful")
+		})
+		.catch((err)=>{
+			alert(err)
+		})
+	}
+		
+	</script>
+</body>
+</html>
